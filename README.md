@@ -12,9 +12,10 @@ There is no build step and no dependencies. Every file here is served as-is.
 
 ```
 index.html               The application
-config.js                The only file you edit per environment
+config.js                Bundled default configuration
 assets/
   app.css                Styling
+  runtime-config.js       Configuration overrides, saved in the browser
   oidc-client.js          OIDC relying party: PKCE, token exchange, JWT verification
   demo-app.js             Page bootstrap
 ```
@@ -34,7 +35,9 @@ GitHub Pages serves over HTTPS by default.
 
 ## Configuring
 
-Edit `config.js`:
+There are two layers. `config.js` is the bundled default, checked into the
+repo — set it to whatever the application should point to when nobody has
+overridden anything:
 
 | Key | What it is |
 |---|---|
@@ -43,8 +46,19 @@ Edit `config.js`:
 | `portalUrl` | Where "Return to sign-in" sends an ended session |
 | `scope` | Scopes requested; the server intersects this with what the client allows |
 
-The issuer prefix is the single most common misconfiguration. Verify it before
-anything else:
+On top of that, the page itself has a **Configuration** card where you can
+set the same four fields at runtime. Saving there writes to this browser's
+`localStorage` (nothing is sent anywhere, and `config.js` on disk is never
+touched) and immediately reloads the page using the new values. It's the
+quick way to point a deployed copy at a different Anugal environment, or to
+try several client ids, without editing a file and redeploying. Leave a
+field blank to fall back to the bundled default; "Reset to defaults" clears
+the saved overrides for this app in this browser.
+
+Because overrides are per-browser, deploying a fresh copy of `config.js`
+still changes what a first-time visitor sees — it's the floor everything
+else sits on. The issuer prefix is the single most common misconfiguration
+in either layer. Verify it before anything else:
 
 ```bash
 curl -X POST https://<host>/oauth/token                  # 404 -> prefix missing

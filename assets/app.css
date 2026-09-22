@@ -205,6 +205,46 @@ td.v {
   color: var(--err);
 }
 
+/* ---- configuration form --------------------------------------------------- */
+
+.config-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.config-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.config-form input {
+  font: inherit;
+  font-size: 13.5px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+.config-form input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.config-form input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
 /* ---- actions ------------------------------------------------------------ */
 
 .actions {

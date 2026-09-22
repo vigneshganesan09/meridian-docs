@@ -17,6 +17,38 @@
       </div>
 
       <div class="card">
+        <h2>Configuration</h2>
+        <p class="note">
+          Saved in this browser only (localStorage) — it never leaves this
+          machine and isn't written back to <code>config.js</code>. Leave a
+          field blank to fall back to the bundled default.
+        </p>
+        <div class="config-form">
+          <label>
+            <span>Issuer</span>
+            <input type="text" id="cfg-issuer" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Client ID</span>
+            <input type="text" id="cfg-client-id" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Portal URL</span>
+            <input type="text" id="cfg-portal-url" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Scope</span>
+            <input type="text" id="cfg-scope" autocomplete="off" spellcheck="false" />
+          </label>
+        </div>
+        <div class="actions">
+          <button type="button" class="primary" id="cfg-save">Save configuration</button>
+          <button type="button" class="secondary" id="cfg-reset">Reset to defaults</button>
+        </div>
+        <div id="cfg-status" class="verify"></div>
+      </div>
+
+      <div class="card">
         <span id="status" class="pill neutral"><span class="dot"></span>Starting…</span>
         <p class="note">
           A standalone application that signs in through Anugal CIAM. It runs a
@@ -90,6 +122,7 @@
       };
     </script>
     <script src="config.js"></script>
+    <script src="assets/runtime-config.js"></script>
     <script src="assets/oidc-client.js"></script>
     <script src="assets/demo-app.js"></script>
   </body>
