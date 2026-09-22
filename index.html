@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meridian Docs — Anugal CIAM</title>
+    <link rel="stylesheet" href="assets/app.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" id="logo">MD</div>
+        <div>
+          <h1 id="app-name">Meridian Docs</h1>
+          <p>Demo application · Anugal CIAM public client (OAuth 2.0 + PKCE)</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span id="status" class="pill neutral"><span class="dot"></span>Starting…</span>
+        <p class="note">
+          A standalone application that signs in through Anugal CIAM. It runs a
+          real OpenID Connect handshake: authorization code with PKCE, a token
+          exchange, then signature verification of the ID token against the
+          Anugal JWKS. It holds no client secret — there is nowhere in a browser
+          to keep one. To exercise single sign-on, deploy it alongside another
+          Anugal CIAM demo application (for example, Aurora Analytics) registered
+          against the same customer: sign in to that one first, then open this
+          page — it should complete with no second prompt, because the session
+          lives in Anugal, not in either page.
+        </p>
+        <div class="actions" id="signin-actions" hidden>
+          <button type="button" class="primary" id="sign-in">
+            Sign in with Anugal
+          </button>
+        </div>
+        <div class="actions" id="session-actions" hidden>
+          <button type="button" class="secondary" id="sign-out">Sign out</button>
+        </div>
+      </div>
+
+      <div id="session-card" class="card" hidden>
+        <h2>Signed-in user (from the verified ID token)</h2>
+        <table>
+          <tbody id="claims"></tbody>
+        </table>
+        <div id="verify" class="verify"></div>
+      </div>
+
+      <div class="card">
+        <h2>Parameters received</h2>
+        <table>
+          <tbody id="params"></tbody>
+        </table>
+        <div id="params-empty" class="empty" hidden>
+          None — the page was opened directly, with no authorization response.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Launch context</h2>
+        <div class="meta">
+          <div><strong>URL:</strong> <span id="href"></span></div>
+          <div><strong>Referred from:</strong> <span id="ref"></span></div>
+          <div><strong>Opened at:</strong> <span id="ts"></span></div>
+          <div><strong>Redirect URI to register:</strong> <span id="redirect-uri"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="session-ended" class="overlay">
+      <div class="overlay-card">
+        <div class="eyebrow">Anugal CIAM</div>
+        <div class="glyph">🔒</div>
+        <div class="title">Session ended</div>
+        <div class="reason" id="session-ended-reason"></div>
+        <div class="body">
+          This application signs in through Anugal CIAM. That session has ended,
+          so the application is signed out too.
+        </div>
+        <a id="portal-link" href="#">Return to Anugal sign-in</a>
+      </div>
+    </div>
+
+    <script>
+      window.DEMO_APP = {
+        name: "Meridian Docs",
+        initials: "MD",
+        accent: "#0ea5a4",
+      };
+    </script>
+    <script src="config.js"></script>
+    <script src="assets/oidc-client.js"></script>
+    <script src="assets/demo-app.js"></script>
+  </body>
+</html>

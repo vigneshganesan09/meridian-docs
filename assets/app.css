@@ -1,0 +1,353 @@
+/*
+ * Shared look for the demo applications. Each page sets its own --accent, so a
+ * second app is a new HTML file and one colour rather than a copy of this file.
+ */
+
+:root {
+  --accent: #6d5efc;
+  --accent-soft: rgba(109, 94, 252, 0.12);
+  --ink: #0f1020;
+  --muted: #6b7280;
+  --line: #e6e8f0;
+  --surface: #ffffff;
+  --canvas: #f6f7fb;
+  --ok: #16a34a;
+  --ok-soft: rgba(22, 163, 74, 0.12);
+  --err: #dc2626;
+  --err-soft: rgba(220, 38, 38, 0.1);
+  --shadow: 0 8px 30px rgba(15, 16, 32, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3f4f8;
+    --muted: #9aa0b4;
+    --line: rgba(255, 255, 255, 0.1);
+    --surface: #16131f;
+    --canvas: #0c0a12;
+    --accent-soft: rgba(109, 94, 252, 0.2);
+    --ok-soft: rgba(22, 163, 74, 0.18);
+    --err-soft: rgba(220, 38, 38, 0.18);
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 100% -10%, var(--accent-soft), transparent 60%),
+    var(--canvas);
+}
+
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 16px 64px;
+}
+
+/* ---- header ------------------------------------------------------------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), #9b8bff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 22px;
+  box-shadow: 0 10px 24px var(--accent-soft);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.brand p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* ---- surfaces ----------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pill.ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.pill.neutral {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.pill.err {
+  background: var(--err-soft);
+  color: var(--err);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.note {
+  margin-top: 8px;
+  padding: 6px 0 6px 12px;
+  border-left: 3px solid var(--accent);
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---- data --------------------------------------------------------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+td {
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+td.k {
+  width: 34%;
+  color: var(--muted);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+td.v {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  word-break: break-all;
+}
+
+.empty {
+  padding: 6px 2px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.meta span {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  word-break: break-all;
+}
+
+.verify {
+  margin-top: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.verify.ok {
+  color: var(--ok);
+}
+
+.verify.err {
+  color: var(--err);
+}
+
+/* ---- actions ------------------------------------------------------------ */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+button.secondary {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- app index ---------------------------------------------------------- */
+
+.app-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.app-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+}
+
+.app-link:hover {
+  border-color: var(--accent);
+}
+
+.app-link strong {
+  display: block;
+  font-size: 15px;
+}
+
+.app-link span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---- session-ended overlay ---------------------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(7, 4, 14, 0.92);
+}
+
+.overlay[data-open="true"] {
+  display: flex;
+}
+
+.overlay-card {
+  max-width: 440px;
+  padding: 34px 38px;
+  text-align: center;
+  border-radius: 18px;
+  background: #140c22;
+  border: 1px solid rgba(196, 181, 253, 0.18);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.overlay-card .eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+}
+
+.overlay-card .glyph {
+  margin-top: 14px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.overlay-card .title {
+  margin-top: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f5f3ff;
+}
+
+.overlay-card .reason {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #c4b5fd;
+}
+
+.overlay-card .body {
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #9b93b5;
+}
+
+.overlay-card a {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 11px 24px;
+  border-radius: 10px;
+  background: #e6b84c;
+  color: #2a1e00;
+  font-weight: 800;
+  font-size: 14.5px;
+  text-decoration: none;
+}
