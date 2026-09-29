@@ -22,7 +22,7 @@ window.CIAM_CONFIG = {
    * starts SSO automatically only when <value> equals this (a trailing slash
    * is ignored).
    */
-  issuer: "http://localhost:4000/anugal-core/api",
+  issuer: "https://dev.anugalid.com:4000/anugal-core/api",
 
   /*
    * Optional. The `iss` value the server writes into its ID tokens and CIAM
@@ -54,7 +54,7 @@ window.CIAM_CONFIG = {
    * authorization endpoint with "Unknown or disabled client_id", which reads
    * like a server fault; empty fails here instead, naming this file.
    */
-  clientId: "",
+  clientId: "local-meridian-docs",
 
   /*
    * The CIAM sign-out (end-session) URL. "Sign out" sends the browser here
@@ -64,10 +64,10 @@ window.CIAM_CONFIG = {
    * Leave empty to use the issuer's advertised end_session_endpoint, falling
    * back to {issuer}/oauth/logout.
    */
-  endSessionUrl: "",
+  endSessionUrl: "https://dev.anugalid.com:4000/anugal-core/api/oauth/logout",
 
   /** Where "Return to sign-in" sends someone whose session has ended. */
-  portalUrl: "http://localhost:5173/ciam-login",
+  portalUrl: "https://vigneshganesan09.github.io/meridian-docs/auth/callback/",
 
   /** Scopes to request. The server intersects this with what the client is allowed. */
   scope: "openid profile email",
