@@ -3,102 +3,106 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Meridian Docs — Anugal CIAM</title>
+    <title>Meridian Docs</title>
     <link rel="stylesheet" href="assets/app.css" />
   </head>
-  <body>
-    <div class="wrap">
-      <div class="brand">
-        <div class="logo" id="logo">MD</div>
+  <body data-loading>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="topbar-brand" data-href="home" href="#">
+          <span class="logo sm" data-app-initials></span>
+          <span data-app-name></span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="#" aria-current="page">Home</a>
+          <a href="#">Documents</a>
+          <a href="#">Shared</a>
+          <a href="#">Templates</a>
+          <a data-href="settings" href="#">Settings</a>
+        </nav>
+        <div class="topbar-right">
+          <a id="sibling-link" class="sibling-link" hidden></a>
+          <div class="user-chip">
+            <span class="avatar" id="user-initials"></span>
+            <span class="user-text">
+              <strong id="user-name"></strong>
+              <span id="user-email"></span>
+            </span>
+          </div>
+          <button type="button" class="secondary sm" data-sign-out>Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="dash">
+      <div class="dash-head">
         <div>
-          <h1 id="app-name">Meridian Docs</h1>
-          <p>Demo application · Anugal CIAM public client (OAuth 2.0 + PKCE)</p>
+          <p class="eyebrow" id="org-name">Workspace</p>
+          <h1 id="greeting">Welcome</h1>
+          <p class="muted">Pick up where you left off. All documents here are sample data.</p>
+        </div>
+        <div class="segmented" role="group" aria-label="Date range">
+          <button type="button" data-range="7" aria-pressed="false">7 days</button>
+          <button type="button" data-range="30" aria-pressed="true">30 days</button>
+          <button type="button" data-range="90" aria-pressed="false">90 days</button>
         </div>
       </div>
 
-      <div class="card">
-        <h2>Configuration</h2>
-        <p class="note">
-          Saved in this browser only (localStorage) — it never leaves this
-          machine and isn't written back to <code>config.js</code>. Leave a
-          field blank to fall back to the bundled default.
-        </p>
-        <div class="config-form">
-          <label>
-            <span>Issuer</span>
-            <input type="text" id="cfg-issuer" autocomplete="off" spellcheck="false" />
-          </label>
-          <label>
-            <span>Client ID</span>
-            <input type="text" id="cfg-client-id" autocomplete="off" spellcheck="false" />
-          </label>
-          <label>
-            <span>Portal URL</span>
-            <input type="text" id="cfg-portal-url" autocomplete="off" spellcheck="false" />
-          </label>
-          <label>
-            <span>Scope</span>
-            <input type="text" id="cfg-scope" autocomplete="off" spellcheck="false" />
-          </label>
-        </div>
-        <div class="actions">
-          <button type="button" class="primary" id="cfg-save">Save configuration</button>
-          <button type="button" class="secondary" id="cfg-reset">Reset to defaults</button>
-        </div>
-        <div id="cfg-status" class="verify"></div>
-      </div>
+      <section class="kpis" id="kpis" aria-label="Workspace summary"></section>
 
-      <div class="card">
-        <span id="status" class="pill neutral"><span class="dot"></span>Starting…</span>
-        <p class="note">
-          A standalone application that signs in through Anugal CIAM. It runs a
-          real OpenID Connect handshake: authorization code with PKCE, a token
-          exchange, then signature verification of the ID token against the
-          Anugal JWKS. It holds no client secret — there is nowhere in a browser
-          to keep one. To exercise single sign-on, deploy it alongside another
-          Anugal CIAM demo application (for example, Aurora Analytics) registered
-          against the same customer: sign in to that one first, then open this
-          page — it should complete with no second prompt, because the session
-          lives in Anugal, not in either page.
-        </p>
-        <div class="actions" id="signin-actions" hidden>
-          <button type="button" class="primary" id="sign-in">
-            Sign in with Anugal
-          </button>
+      <section class="grid two-one">
+        <div class="card">
+          <div class="card-head">
+            <h2>Edits per day</h2>
+          </div>
+          <div id="chart-edits"></div>
         </div>
-        <div class="actions" id="session-actions" hidden>
-          <button type="button" class="secondary" id="sign-out">Sign out</button>
+        <div class="card">
+          <div class="card-head">
+            <h2>Documents by space</h2>
+          </div>
+          <div id="chart-spaces"></div>
         </div>
-      </div>
+      </section>
 
-      <div id="session-card" class="card" hidden>
-        <h2>Signed-in user (from the verified ID token)</h2>
+      <section class="grid two-one">
+        <div class="card">
+          <div class="card-head">
+            <h2>Recent documents</h2>
+          </div>
+          <div class="table-scroll">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Space</th>
+                  <th>Owner</th>
+                  <th class="num">Updated</th>
+                </tr>
+              </thead>
+              <tbody id="recent-docs"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2>Activity</h2>
+          </div>
+          <ul class="feed" id="activity"></ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Your session</h2>
+        </div>
+        <div class="verify ok">✓ Identity from a verified Anugal ID token</div>
+        <p class="muted small" id="token-expiry"></p>
         <table>
           <tbody id="claims"></tbody>
         </table>
-        <div id="verify" class="verify"></div>
-      </div>
-
-      <div class="card">
-        <h2>Parameters received</h2>
-        <table>
-          <tbody id="params"></tbody>
-        </table>
-        <div id="params-empty" class="empty" hidden>
-          None — the page was opened directly, with no authorization response.
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Launch context</h2>
-        <div class="meta">
-          <div><strong>URL:</strong> <span id="href"></span></div>
-          <div><strong>Referred from:</strong> <span id="ref"></span></div>
-          <div><strong>Opened at:</strong> <span id="ts"></span></div>
-          <div><strong>Redirect URI to register:</strong> <span id="redirect-uri"></span></div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <div id="session-ended" class="overlay">
       <div class="overlay-card">
@@ -114,16 +118,13 @@
       </div>
     </div>
 
-    <script>
-      window.DEMO_APP = {
-        name: "Meridian Docs",
-        initials: "MD",
-        accent: "#0ea5a4",
-      };
-    </script>
+    <script src="assets/app-identity.js"></script>
     <script src="config.js"></script>
     <script src="assets/runtime-config.js"></script>
     <script src="assets/oidc-client.js"></script>
-    <script src="assets/demo-app.js"></script>
+    <script src="assets/app-shell.js"></script>
+    <script src="assets/charts.js"></script>
+    <script src="assets/dashboard.js"></script>
+    <script src="assets/home.js"></script>
   </body>
 </html>

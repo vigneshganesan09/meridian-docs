@@ -17,20 +17,37 @@ window.CIAM_CONFIG = {
    *   curl -X POST https://<host>/anugal-core/api/oauth/token  -> 400 (right)
    *
    * A 400 means the route is alive and merely rejecting an empty body.
+   *
+   * It is also what a CIAM launch is matched against: /auth/login/?iss=<value>
+   * starts SSO automatically only when <value> equals this (a trailing slash
+   * is ignored).
    */
   issuer: "http://localhost:4000/anugal-core/api",
+
+  /*
+   * Optional. The `iss` value the server writes into its ID tokens and CIAM
+   * launch links, when that differs from `issuer` above. Leave empty normally.
+   *
+   * Only for a server whose own issuer setting has not been updated — e.g. it
+   * is reached at https://dev.example.com:4000/anugal-core/api but still names
+   * itself http://localhost:4000/anugal-core/api. Requests still go to
+   * `issuer`; tokens must carry exactly this value or they are rejected.
+   * The real fix is the server's issuer setting — clear this once it is done.
+   */
+  tokenIssuer: "",
 
   /*
    * The OAuth client id this application authenticates as.
    *
    * Register it in Anugal under the customer that will use it, as a PUBLIC
-   * client (no secret, PKCE required), and register its redirect URI exactly
-   * as the page computes it: origin + path, no query, no fragment.
+   * client (no secret, PKCE required), with these URIs (the settings page
+   * prints the exact values for wherever the app is deployed):
    *
-   *   https://apps.example.com/meridian-docs/
-   *   https://apps.example.com/meridian-docs/index.html
+   *   redirect URI              https://apps.example.com/meridian-docs/auth/callback/
+   *   post-logout redirect URI  https://apps.example.com/meridian-docs/auth/login/
+   *   launch URL                https://apps.example.com/meridian-docs/auth/login/
    *
-   * Redirect URIs are matched literally — a trailing slash, an added
+   * Redirect URIs are matched literally — a missing trailing slash, an added
    * index.html, or http vs https is a mismatch and fails before sign-in.
    *
    * Left empty on purpose. An id that merely LOOKS plausible fails at the
@@ -44,4 +61,10 @@ window.CIAM_CONFIG = {
 
   /** Scopes to request. The server intersects this with what the client is allowed. */
   scope: "openid profile email",
+
+  /**
+   * Optional. Where the sibling demo application is deployed, shown as a link
+   * on the dashboard so single sign-on can be tried in one click.
+   */
+  siblingUrl: "",
 };

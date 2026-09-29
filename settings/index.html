@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Connection settings</title>
+    <link rel="stylesheet" href="../assets/app.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" data-app-initials></div>
+        <div>
+          <h1><span data-app-name></span> · Connection settings</h1>
+          <p>Anugal CIAM public client (OAuth 2.0 + PKCE)</p>
+        </div>
+      </div>
+      <p class="backlinks">
+        <a data-href="home" href="#">← Dashboard</a>
+        <a data-href="login" href="#">Sign-in page</a>
+      </p>
+
+      <div class="card">
+        <h2>Configuration</h2>
+        <p class="note">
+          Saved in this browser only (localStorage) — it never leaves this
+          machine and isn't written back to <code>config.js</code>. Leave a
+          field blank to fall back to the bundled default.
+        </p>
+        <div class="config-form">
+          <label>
+            <span>Issuer</span>
+            <input type="text" id="cfg-issuer" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Token issuer (iss) — only if it differs</span>
+            <input type="text" id="cfg-token-issuer" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Client ID</span>
+            <input type="text" id="cfg-client-id" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Portal URL</span>
+            <input type="text" id="cfg-portal-url" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Scope</span>
+            <input type="text" id="cfg-scope" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>Sibling app URL</span>
+            <input type="text" id="cfg-sibling-url" autocomplete="off" spellcheck="false" />
+          </label>
+        </div>
+        <div class="actions">
+          <button type="button" class="primary" id="cfg-save">Save configuration</button>
+          <button type="button" class="secondary" id="cfg-reset">Reset to defaults</button>
+          <button type="button" class="secondary" id="test-issuer">Test the issuer</button>
+        </div>
+        <div id="cfg-status" class="verify"></div>
+        <div id="issuer-status" class="verify"></div>
+      </div>
+
+      <div class="card">
+        <h2>Register in Anugal</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td class="k">Redirect URI</td>
+              <td class="v" id="uri-callback"></td>
+            </tr>
+            <tr>
+              <td class="k">Post-logout redirect URI</td>
+              <td class="v" id="uri-logout"></td>
+            </tr>
+            <tr>
+              <td class="k">Launch URL (auto-starts SSO)</td>
+              <td class="v" id="uri-launch"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          Redirect URIs are matched literally — keep the trailing slash. When
+          CIAM opens the launch URL with an <code>iss</code> that equals the
+          configured issuer, the sign-in page starts SSO on its own and shows
+          “Signing you in…” instead of the email form.
+        </p>
+      </div>
+    </div>
+
+    <script src="../assets/app-identity.js"></script>
+    <script src="../config.js"></script>
+    <script src="../assets/runtime-config.js"></script>
+    <script src="../assets/oidc-client.js"></script>
+    <script src="../assets/app-shell.js"></script>
+    <script src="../assets/settings.js"></script>
+  </body>
+</html>

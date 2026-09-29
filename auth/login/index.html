@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Sign in</title>
+    <link rel="stylesheet" href="../../assets/app.css" />
+  </head>
+  <body class="auth-body">
+    <div class="auth-layout">
+      <section class="auth-hero" aria-hidden="true">
+        <div class="brand">
+          <div class="logo" data-app-initials></div>
+          <div>
+            <h1 data-app-name></h1>
+            <p>Secured by Anugal CIAM</p>
+          </div>
+        </div>
+        <p class="auth-hero-tagline" data-app-tagline></p>
+        <ul class="auth-hero-points">
+          <li>One sign-in across every application your organisation uses.</li>
+          <li>Your identity comes from a signed, verified ID token.</li>
+          <li>Signing out here signs you out of Anugal too.</li>
+        </ul>
+      </section>
+
+      <main class="auth-panel">
+        <div class="card auth-card">
+          <!-- Shown while an SSO launch from CIAM is being handed off. -->
+          <div id="state-signing-in" class="signing-in" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <h2 class="auth-title">Signing you in…</h2>
+            <p class="muted" id="signing-in-detail">Redirecting to Anugal CIAM.</p>
+          </div>
+
+          <!-- The normal sign-in page. -->
+          <div id="state-form" hidden>
+            <h2 class="auth-title">Sign in to <span data-app-name></span></h2>
+            <p class="muted">Use your work email to continue.</p>
+
+            <div id="login-error" class="banner err" role="alert" hidden>
+              <strong>Sign-in failed.</strong>
+              <span id="login-error-text"></span>
+            </div>
+            <div id="login-info" class="banner info" role="status" hidden></div>
+
+            <form id="email-form" class="auth-form" novalidate>
+              <label>
+                <span>Email</span>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autocomplete="username"
+                  placeholder="you@company.com"
+                  required
+                />
+              </label>
+              <button type="submit" class="primary block" id="email-continue">Continue</button>
+            </form>
+
+            <div class="divider"><span>or</span></div>
+
+            <button type="button" class="secondary block" id="sso-button">
+              Sign in with Anugal SSO
+            </button>
+
+            <p class="fineprint">
+              Your password is never entered on this site — Anugal CIAM handles
+              authentication. <a data-href="settings" href="#">Connection settings</a>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../assets/app-identity.js"></script>
+    <script src="../../config.js"></script>
+    <script src="../../assets/runtime-config.js"></script>
+    <script src="../../assets/oidc-client.js"></script>
+    <script src="../../assets/app-shell.js"></script>
+    <script src="../../assets/login.js"></script>
+  </body>
+</html>
