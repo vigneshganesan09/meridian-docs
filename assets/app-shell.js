@@ -186,7 +186,14 @@
     });
   }
 
+  /*
+   * Where sign-out sends the browser: `endSessionUrl` from the configuration
+   * when set, otherwise the issuer's advertised end_session_endpoint, otherwise
+   * {issuer}/oauth/logout.
+   */
   function discoverEndSession() {
+    if (config.endSessionUrl) return Promise.resolve(config.endSessionUrl);
+
     // Prefer what the issuer advertises; give up quickly and fall back to the
     // Anugal default so a slow discovery call never strands someone signing out.
     var timeout = new Promise(function (resolve) {

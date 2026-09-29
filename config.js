@@ -56,6 +56,16 @@ window.CIAM_CONFIG = {
    */
   clientId: "",
 
+  /*
+   * The CIAM sign-out (end-session) URL. "Sign out" sends the browser here
+   * with id_token_hint, client_id and post_logout_redirect_uri, ending the
+   * Anugal session for every application signed in through it.
+   *
+   * Leave empty to use the issuer's advertised end_session_endpoint, falling
+   * back to {issuer}/oauth/logout.
+   */
+  endSessionUrl: "",
+
   /** Where "Return to sign-in" sends someone whose session has ended. */
   portalUrl: "http://localhost:5173/ciam-login",
 

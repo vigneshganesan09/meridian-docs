@@ -49,7 +49,9 @@ overridden anything:
 | Key | What it is |
 |---|---|
 | `issuer` | Base URL of the Anugal core API, **including** its `/anugal-core/api` prefix |
+| `tokenIssuer` | Optional. The `iss` the server puts in tokens and launch links, only if it differs from `issuer` |
 | `clientId` | The OAuth client id this application authenticates as |
+| `endSessionUrl` | Optional. CIAM sign-out (end-session) URL; empty uses the discovered `end_session_endpoint`, then `{issuer}/oauth/logout` |
 | `portalUrl` | Where "Return to sign-in" sends an ended session |
 | `scope` | Scopes requested; the server intersects this with what the client allows |
 | `siblingUrl` | Optional. Where the sibling app is deployed; shown as a link on the dashboard |
@@ -125,8 +127,9 @@ page with its parameters, so either URL works as the launch URL.
 ## Signing out through CIAM
 
 "Sign out" clears this app's session and redirects the browser to the CIAM
-end-session endpoint (the discovery document's `end_session_endpoint`,
-falling back to `{issuer}/oauth/logout`) with `id_token_hint`, `client_id`
+end-session endpoint — `endSessionUrl` from the configuration when set,
+otherwise the discovery document's `end_session_endpoint` (used only when it
+is on the issuer's host), falling back to `{issuer}/oauth/logout` — with `id_token_hint`, `client_id`
 and `post_logout_redirect_uri` set to the sign-in page. That ends the Anugal
 session, so the sibling application is signed out too.
 

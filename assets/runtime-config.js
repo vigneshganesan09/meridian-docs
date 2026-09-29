@@ -15,7 +15,15 @@
 (function () {
   "use strict";
 
-  var FIELDS = ["issuer", "tokenIssuer", "clientId", "portalUrl", "scope", "siblingUrl"];
+  var FIELDS = [
+    "issuer",
+    "tokenIssuer",
+    "clientId",
+    "endSessionUrl",
+    "portalUrl",
+    "scope",
+    "siblingUrl",
+  ];
 
   function slug(text) {
     return (
@@ -74,6 +82,7 @@
       issuer: el("cfg-issuer"),
       tokenIssuer: el("cfg-token-issuer"),
       clientId: el("cfg-client-id"),
+      endSessionUrl: el("cfg-end-session-url"),
       portalUrl: el("cfg-portal-url"),
       scope: el("cfg-scope"),
       siblingUrl: el("cfg-sibling-url"),

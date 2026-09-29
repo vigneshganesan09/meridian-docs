@@ -11,6 +11,11 @@
 
     el("uri-callback").textContent = shell.routes.callback;
     el("uri-logout").textContent = shell.routes.login;
+    el("uri-end-session").textContent =
+      shell.config.endSessionUrl ||
+      "Discovered from the issuer (end_session_endpoint), else " +
+        (shell.config.issuer || "{issuer}") +
+        "/oauth/logout";
     var launch = new URL(shell.routes.login);
     if (shell.tokenIssuer()) launch.searchParams.set("iss", shell.tokenIssuer());
     el("uri-launch").textContent = launch.toString();
