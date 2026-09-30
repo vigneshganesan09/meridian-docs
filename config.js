@@ -64,7 +64,7 @@ window.CIAM_CONFIG = {
    * Leave empty to use the issuer's advertised end_session_endpoint, falling
    * back to {issuer}/oauth/logout.
    */
-  endSessionUrl: "https://dev.anugalid.com:4000/anugal-core/api/oauth/logout",
+  endSessionUrl: "https://vigneshganesan09.github.io/meridian-docs/auth/login/",
 
   /** Where "Return to sign-in" sends someone whose session has ended. */
   portalUrl: "https://vigneshganesan09.github.io/meridian-docs/auth/callback/",
